@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ROI Calculator</title>
+  <style>
+    :root {
+      --bg-color: linear-gradient(to right, #2c3e50, #3498db);
+      --container-bg: rgba(255, 255, 255, 0.1);
+      --text-color: #ffffff;
+      --button-bg: #27ae60;
+      --button-hover: #2ecc71;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .container {
+      background-color: var(--container-bg);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      transition: background 0.5s;
+    }
+
+    label {
+      font-size: 1.5rem;
+      display: block;
+      margin: 20px 0 10px;
+    }
+
+    input {
+      font-size: 1.5rem;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    button {
+      font-size: 1.5rem;
+      padding: 15px 30px;
+      margin-top: 30px;
+      border: none;
+      border-radius: 15px;
+      background-color: var(--button-bg);
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: var(--button-hover);
+    }
+
+    #result {
+      font-size: 2rem;
+      margin-top: 30px;
+    }
+
+    select {
+      font-size: 1.2rem;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>ROI Calculator</h1>
+
+  <div class="container">
+    <label for="theme">Choose Theme:</label>
+    <select id="theme" onchange="changeTheme()">
+      <option value="default">Default</option>
+      <option value="dark">Dark</option>
+      <option value="light">Light</option>
+      <option value="sunset">Sunset</option>
+      <option value="forest">Forest</option>
+      <option value="aqua">Aqua</option>
+    </select>
+
+    <label for="investment">Enter Investment Amount (₹):</label>
+    <input type="number" id="investment" placeholder="e.g. 1300000">
+
+    <label for="profit">Enter Profit/Gain Amount (₹):</label>
+    <input type="number" id="profit" placeholder="e.g. 7000">
+
+    <button onclick="calculateROI()">Calculate ROI</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculateROI() {
+      const investment = parseFloat(document.getElementById('investment').value);
+      const profit = parseFloat(document.getElementById('profit').value);
+      const resultDiv = document.getElementById('result');
+
+      if (isNaN(investment) || isNaN(profit) || investment === 0) {
+        resultDiv.textContent = "Please enter valid numbers.";
+        return;
+      }
+
+      const roi = (profit / investment) * 100;
+      resultDiv.textContent = `ROI: ${roi.toFixed(2)}%`;
+    }
+
+    function changeTheme() {
+      const theme = document.getElementById('theme').value;
+      const root = document.documentElement;
+
+      switch(theme) {
+        case 'dark':
+          root.style.setProperty('--bg-color', 'linear-gradient(to right, #000000, #434343)');
+          root.style.setProperty('--container-bg', 'rgba(255, 255, 255, 0.05)');
+          root.style.setProperty('--text-color', '#ffffff');
+          root.style.setProperty('--button-bg', '#555555');
+          root.style.setProperty('--button-hover', '#777777');
+          break;
+        case 'light':
+          root.style.setProperty('--bg-color', 'linear-gradient(to right, #ffffff, #f0f0f0)');
+          root.style.setProperty('--container-bg', 'rgba(0, 0, 0, 0.05)');
+          root.style.setProperty('--text-color', '#000000');
+          root.style.setProperty('--button-bg', '#2980b9');
+          root.style.setProperty('--button-hover', '#3498db');
+          break;
+        case 'sunset':
+          root.style.setProperty('--bg-color', 'linear-gradient(to right, #ff512f, #dd2476)');
+          root.style.setProperty('--container-bg', 'rgba(255, 255, 255, 0.2)');
+          root.style.setProperty('--text-color', '#ffffff');
+          root.style.setProperty('--button-bg', '#e74c3c');
+          root.style.setProperty('--button-hover', '#c0392b');
+          break;
+        case 'forest':
+          root.style.setProperty('--bg-color', 'linear-gradient(to right, #2c7744, #14532d)');
+          root.style.setProperty('--container-bg', 'rgba(255, 255, 255, 0.15)');
+          root.style.setProperty('--text-color', '#ffffff');
+          root.style.setProperty('--button-bg', '#1e8449');
+          root.style.setProperty('--button-hover', '#27ae60');
+          break;
+        case 'aqua':
+          root.style.setProperty('--bg-color', 'linear-gradient(to right, #00c6ff, #0072ff)');
+          root.style.setProperty('--container-bg', 'rgba(255, 255, 255, 0.1)');
+          root.style.setProperty('--text-color', '#ffffff');
+          root.style.setProperty('--button-bg', '#0097e6');
+          root.style.setProperty('--button-hover', '#00a8ff');
+          break;
+        default:
+          root.style.setProperty('--bg-color', 'linear-gradient(to right, #2c3e50, #3498db)');
+          root.style.setProperty('--container-bg', 'rgba(255, 255, 255, 0.1)');
+          root.style.setProperty('--text-color', '#ffffff');
+          root.style.setProperty('--button-bg', '#27ae60');
+          root.style.setProperty('--button-hover', '#2ecc71');
+      }
+    }
+  </script>
+</body>
+</html>
